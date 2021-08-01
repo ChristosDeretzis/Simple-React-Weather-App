@@ -1,8 +1,10 @@
+import axios from 'axios';
 import React, {Component} from 'react'
 import './App.css';
 import Card from './components/Card/Card';
 import Loader from './components/Loader/Loader';
 import Header from './containers/Header/Header';
+import Preview from './containers/Preview/Preview';
 import SearchBar from './containers/SearchBar/SearchBar';
 
 class App extends Component {
@@ -22,15 +24,56 @@ class App extends Component {
     });
   }
 
+  resetHandler = () => {
+    this.setState({
+      searchBarInput: '',
+      weatherDetails: {},
+      error: false
+    });
+  }  
 
   setWeather = () => {
-    console.log("Hello")
+    const city = this.state.searchBarInput;
+    const API_KEY = process.env.REACT_APP_API_KEY;
+    const BASE_URL = 'http://api.openweathermap.org/data/2.5/weather';
+    const CITY_URL = BASE_URL + `?q=${city}&appid=${API_KEY}&units=metric`;
+    console.log(CITY_URL)
+    this.setState({
+      weatherDetails: {},
+      loading: true,
+      error: false
+    }, () => {
+      axios.get(CITY_URL)
+        .then(res => {
+          if(res.data.cod === 200){
+            this.setState({
+              weatherDetails: {
+                temperature: res.data.main.temp,
+                description: res.data.weather[0].main
+              },
+              loading: false
+            });
+          } else {
+            throw res.data.cod
+          }
+        }).catch(err => {
+          this.setState({
+            loading: false,
+            error: true
+          });
+        });
+    });
   }
 
   render() {
+    let cardContent = <Preview />;
+    if(this.state.loading) {
+      cardContent = <Loader />
+    }
+
     return (
       <div className="AppWrapper">
-        <Header />
+        <Header onClickListener={this.resetHandler}/>
         <main className="AppMain">
         <SearchBar
           value={this.state.searchBarInput}
@@ -38,7 +81,7 @@ class App extends Component {
           onClickHandler={this.setWeather}
           error={this.state.error} />
           <Card>
-            <Loader /> 
+            {cardContent} 
           </Card>
         </main>
       </div>
