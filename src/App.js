@@ -3,6 +3,7 @@ import React, {Component} from 'react'
 import './App.css';
 import Card from './components/Card/Card';
 import Loader from './components/Loader/Loader';
+import Error from './containers/Error/Error';
 import Header from './containers/Header/Header';
 import Preview from './containers/Preview/Preview';
 import SearchBar from './containers/SearchBar/SearchBar';
@@ -70,6 +71,8 @@ class App extends Component {
     let cardContent = <Preview />;
     if(this.state.loading) {
       cardContent = <Loader />
+    } else if(this.state.error) {
+      cardContent = <Error onClickHandler={this.resetHandler} /> 
     } else if(this.state.weatherDetails.temperature && this.state.weatherDetails.description !== ''){
       cardContent = <WeatherDetails data={this.state.weatherDetails} /> 
     }
