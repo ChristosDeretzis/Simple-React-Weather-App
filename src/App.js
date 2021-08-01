@@ -6,6 +6,7 @@ import Loader from './components/Loader/Loader';
 import Header from './containers/Header/Header';
 import Preview from './containers/Preview/Preview';
 import SearchBar from './containers/SearchBar/SearchBar';
+import WeatherDetails from './containers/WeatherDetails/WeatherDetails';
 
 class App extends Component {
   state = {
@@ -69,6 +70,8 @@ class App extends Component {
     let cardContent = <Preview />;
     if(this.state.loading) {
       cardContent = <Loader />
+    } else if(this.state.weatherDetails.temperature && this.state.weatherDetails.description !== ''){
+      cardContent = <WeatherDetails data={this.state.weatherDetails} /> 
     }
 
     return (

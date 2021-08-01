@@ -1,0 +1,48 @@
+.WeatherDetailsWrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 2rem;
+}
+
+.WeatherIconWrapper {
+    align-self: center;
+}
+
+.WeatherDataWrapper {
+    align-self: flex-start;
+}
+
+.TemperatureWrapper {
+    color: #333333;
+    font-size: 3.75rem;
+    margin: .5rem 0;
+}
+
+.TemperatureWrapper .TemperatureSymbol {
+    font-size: 3.125rem;
+}
+
+.DescriptionWrapper {
+    color: #333333;
+    font-size: 1.875rem;
+    letter-spacing: +.5rem;
+    margin: .5rem 0;
+}
+
+.DateWrapper {
+    color: #333333;
+    font-size: 1rem;
+    letter-spacing: +1px;
+}
+
+@media only screen and (min-width:600px) {
+    .WeatherDetailsWrapper {
+        flex-direction: row;
+        justify-content: space-around;
+    }
+
+    .WeatherDataWrapper {
+        align-self: center;
+    }
+}
