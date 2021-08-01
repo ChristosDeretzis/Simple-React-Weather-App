@@ -1,11 +1,11 @@
 import React from 'react'
 
-import './Header.css'
+import classes from './Header.module.css'
 
 const Header = (props) => {
     return (
-        <header className="Header">
-            <h1 className="Logo" onClick={props.onClickListener}>
+        <header className={classes.Header}>
+            <h1 className={classes.Logo} onClick={props.onClickListener}>
                 My Header
             </h1>
         </header>

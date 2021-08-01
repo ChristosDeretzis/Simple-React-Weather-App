@@ -1,9 +1,9 @@
 import React from "react"
-import "./Loader.css"
+import classes from "./Loader.module.css"
 
 const Loader = props => {
     return(
-        <div className="lds-roller">
+        <div className={classes.ldsRoller}>
             <div></div>
             <div></div>
             <div></div>
